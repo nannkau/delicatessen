@@ -11,6 +11,11 @@ public class BaseResponse <T>{
         this.data = data;
     }
 
+    public BaseResponse(String error,Integer statusCode) {
+        this.statusCode = statusCode;
+        this.error = error;
+    }
+
     public Integer getStatusCode() {
         return this.statusCode;
     }

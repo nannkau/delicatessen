@@ -1,9 +1,12 @@
 package edu.sgu.delicatessen.dto.response;
 
+import java.util.List;
+
 public class JwtDTO  {
     private String jwt;
     private String username;
     private  String type;
+    private List<String> roles;
 
     public String getJwt() {
         return this.jwt;
@@ -28,6 +31,14 @@ public class JwtDTO  {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<String> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
 }

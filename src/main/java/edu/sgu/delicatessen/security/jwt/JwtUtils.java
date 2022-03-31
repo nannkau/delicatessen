@@ -7,17 +7,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import edu.sgu.delicatessen.security.MyUserDetails;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtils {
 
-  @Value("${bezkoder.app.jwtSecret}")
+  @Value("${my.app.jwt.secret}")
   private String jwtSecret;
 
-  @Value("${bezkoder.app.jwtExpirationMs}")
-  private int jwtExpirationMs;
+  @Value("${my.app.jwt.expiration}")
+  private int jwtExpiration;
 
   public String generateJwtToken(Authentication authentication) {
 
@@ -26,7 +30,7 @@ public class JwtUtils {
     return Jwts.builder()
         .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+        .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
         .compact();
   }
